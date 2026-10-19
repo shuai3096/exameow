@@ -1,0 +1,160 @@
+name: Release Mobile
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  APP_NAME: Exameow
+  PNPM_VERSION: '10'
+  NODE_VERSION: '22'
+  JAVA_VERSION: '17'
+  ANDROID_NDK_VERSION: '27.0.12077973'
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check OTA minShell covers new native commands
+        run: bash scripts/check-ota-minshell.sh "${GITHUB_REF_NAME#v}"
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android
+
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: 'ndk;${{ env.ANDROID_NDK_VERSION }}'
+
+      - name: Init Android project
+        run: |
+          pnpm tauri android init
+          pnpm tauri icon src-tauri/icons/icon.png
+          sed -i 's/#fff/#EE9D62/' src-tauri/gen/android/app/src/main/res/values/ic_launcher_background.xml
+          sed -i 's|<uses-permission android:name="android.permission.INTERNET" />|<uses-permission android:name="android.permission.INTERNET" />\n    <uses-permission android:name="android.permission.CAMERA" />|' src-tauri/gen/android/app/src/main/AndroidManifest.xml
+          grep CAMERA src-tauri/gen/android/app/src/main/AndroidManifest.xml
+
+      - name: Build Android APK
+        run: pnpm tauri android build --apk --target aarch64
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/${{ env.ANDROID_NDK_VERSION }}
+
+      - name: Decode release keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > release.keystore
+
+      - name: Sign and align APK
+        run: |
+          mkdir -p dist
+          UNSIGNED_APK=$(find src-tauri/gen/android/app/build/outputs/apk -name "*.apk" | head -n 1)
+          ALIGNED_APK="dist/Exameow-${{ github.ref_name }}-android_arm64.apk"
+          BUILD_TOOLS=$(find "$ANDROID_HOME/build-tools" -maxdepth 1 -type d | sort -V | tail -n 1)
+          "$BUILD_TOOLS/zipalign" -f -v 4 "$UNSIGNED_APK" "$ALIGNED_APK"
+          "$BUILD_TOOLS/apksigner" sign \
+            --ks release.keystore \
+            --ks-pass "pass:${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" \
+            --key-pass "pass:${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" \
+            --ks-key-alias exameow \
+            --v1-signing-enabled true \
+            --v2-signing-enabled true \
+            "$ALIGNED_APK"
+          "$BUILD_TOOLS/apksigner" verify --verbose "$ALIGNED_APK"
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+
+      - name: Package OTA bundle
+        run: |
+          TAG="${{ github.ref_name }}"
+          VERSION="${TAG#v}"
+          MIN_SHELL=$(python3 -c "import json;print(json.load(open('ota.json'))['minShell'])")
+          tar -czf mobile-dist.tar.gz -C frontend/dist .
+          SHA=$(sha256sum mobile-dist.tar.gz | cut -d' ' -f1)
+          SIZE=$(stat -c%s mobile-dist.tar.gz)
+          printf '{\n  "version": "%s",\n  "minShell": "%s",\n  "url": "https://github.com/%s/releases/download/%s/mobile-dist.tar.gz",\n  "sha256": "%s",\n  "size": %s\n}\n' \
+            "$VERSION" "$MIN_SHELL" "${{ github.repository }}" "$TAG" "$SHA" "$SIZE" > mobile-ota.json
+          cat mobile-ota.json
+          mv mobile-dist.tar.gz mobile-ota.json dist/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: dist/*
+
+  release:
+    needs: build-android
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+          pattern: android-apk
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Exameow ${{ github.ref_name }}
+          prerelease: false
+          draft: true
+          body: |
+            ## 🔗 Quick Links
+            - [Docker Image](https://hub.docker.com/r/ailm32442/exameow)
+            - [Documentation](https://github.com/${{ github.repository }}#readme)
+
+            ## 📦 Downloads
+
+            👉 [Windows-msi](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/Exameow-${{ github.ref_name }}-windows_amd64.msi)
+
+            👉 [Windows-portable](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/Exameow-${{ github.ref_name }}-windows_amd64-portable.zip)
+
+            👉 [MacOS-dmg-Arm64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/Exameow-${{ github.ref_name }}-macos_arm64.dmg)
+
+            👉 [MacOS-dmg-X64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/Exameow-${{ github.ref_name }}-macos_amd64.dmg)
+
+            👉 [Linux-AppImage-X86_64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/Exameow-${{ github.ref_name }}-linux_amd64.AppImage)
+
+            👉 [Linux-AppImage-Arm64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/Exameow-${{ github.ref_name }}-linux_arm64.AppImage)
+
+            👉 [Linux-deb-X86_64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/Exameow-${{ github.ref_name }}-linux_amd64.deb)
+
+            👉 [Linux-deb-Arm64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/Exameow-${{ github.ref_name }}-linux_arm64.deb)
+
+            👉 [Android-apk-Arm64](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/Exameow-${{ github.ref_name }}-android_arm64.apk)
+
+            ## ⚠️ macOS: "App is damaged" / 「App 已损坏，无法打开」
+
+            **EN:** The app is ad-hoc signed (not notarized). macOS quarantines apps downloaded from the internet. Run the command below in Terminal, then open the app normally:
+
+            **中文：** 应用为自签名（未公证），从网络下载会带隔离属性。在终端执行以下命令后即可正常打开：
+
+            ```bash
+            xattr -cr /Applications/Exameow.app
+            ```
+          files: artifacts/*
+          fail_on_unmatched_files: false

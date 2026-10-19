@@ -1,0 +1,19 @@
+{
+  "title": "Exameow",
+  "icon-size": 128,
+  "window": {
+    "position": { "x": 200, "y": 120 },
+    "size": { "width": 660, "height": 400 }
+  },
+  "contents": [
+    { "x": 180, "y": 170, "type": "file", "path": "Exameow.app" },
+    { "x": 480, "y": 170, "type": "link", "path": "/Applications" }
+  ],
+  "format": "ULFO",
+  "background": null,
+  "show_status_bar": false,
+  "show_tab_view": false,
+  "show_toolbar": false,
+  "show_pathbar": false,
+  "show_sidebar": false
+}

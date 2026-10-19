@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="512" viewBox="0 0 1200 512" role="img" aria-labelledby="title desc">
+  <title id="title">过了喵 Exameow 架构</title>
+  <desc id="desc">分层架构图:上层为 Vue 3 前端,中层为 Rust Axum 服务端(文件解析、AI 客户端、出题引擎、导出),底层为四种部署方式。</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FDFBFF"/>
+      <stop offset="1" stop-color="#EFEFFF"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="512" rx="28" fill="url(#bg)"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif">
+
+    <rect x="32" y="32" width="1136" height="88" rx="20" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+    <text x="64" y="84" font-size="24" font-weight="700" fill="#131C2C">前端</text>
+    <text x="1136" y="84" font-size="20" fill="#575F71" text-anchor="end">Vue 3 + Vite + Pinia · 单页应用,由服务端托管</text>
+
+    <path d="M588 130 L600 142 L612 130" fill="none" stroke="#8CACFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="32" y="148" width="1136" height="190" rx="20" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+    <text x="64" y="192" font-size="24" font-weight="700" fill="#131C2C">服务端 — Rust / Axum</text>
+
+    <g>
+      <rect x="80" y="212" width="248" height="104" rx="16" fill="#F0F0F9"/>
+      <text x="100" y="248" font-size="20" font-weight="700" fill="#0059BE">文件解析</text>
+      <text x="100" y="276" font-size="16" fill="#73737C">PDF · DOCX · XLSX · PPTX</text>
+      <text x="100" y="298" font-size="16" fill="#73737C">EPUB · 图片 · 文本</text>
+    </g>
+    <g>
+      <rect x="344" y="212" width="248" height="104" rx="16" fill="#F0F0F9"/>
+      <text x="364" y="248" font-size="20" font-weight="700" fill="#0059BE">AI 客户端</text>
+      <text x="364" y="276" font-size="16" fill="#73737C">兼容 OpenAI 格式 API</text>
+      <text x="364" y="298" font-size="16" fill="#73737C">自定义端点与密钥</text>
+    </g>
+    <g>
+      <rect x="608" y="212" width="248" height="104" rx="16" fill="#F0F0F9"/>
+      <text x="628" y="248" font-size="20" font-weight="700" fill="#0059BE">出题引擎</text>
+      <text x="628" y="276" font-size="16" fill="#73737C">Prompt 工程构建</text>
+      <text x="628" y="298" font-size="16" fill="#73737C">+ 结果解析</text>
+    </g>
+    <g>
+      <rect x="872" y="212" width="248" height="104" rx="16" fill="#F0F0F9"/>
+      <text x="892" y="248" font-size="20" font-weight="700" fill="#0059BE">导出</text>
+      <text x="892" y="276" font-size="16" fill="#73737C">手写 ZIP+XML 实现</text>
+      <text x="892" y="298" font-size="16" fill="#73737C">XLSX · CSV</text>
+    </g>
+
+    <path d="M588 346 L600 358 L612 346" fill="none" stroke="#8CACFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="32" y="364" width="1136" height="116" rx="20" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+    <text x="64" y="408" font-size="24" font-weight="700" fill="#131C2C">部署方式</text>
+
+    <g font-size="17" fill="#002E68" text-anchor="middle">
+      <rect x="80" y="424" width="248" height="40" rx="20" fill="#DBE1FF"/>
+      <text x="204" y="450">Docker 自托管</text>
+      <rect x="344" y="424" width="248" height="40" rx="20" fill="#DBE1FF"/>
+      <text x="468" y="450">桌面端 Win·macOS·Linux</text>
+      <rect x="608" y="424" width="248" height="40" rx="20" fill="#DBE1FF"/>
+      <text x="732" y="450">移动端 Android / iOS</text>
+      <rect x="872" y="424" width="248" height="40" rx="20" fill="#DBE1FF"/>
+      <text x="996" y="450">Cloudflare Pages + Worker</text>
+    </g>
+
+  </g>
+</svg>

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="884" viewBox="0 0 1200 884" role="img" aria-labelledby="title desc">
+  <title id="title">Exameow feature overview</title>
+  <desc id="desc">Four panels covering AI question generation, practice modes, online exams, and search modes, plus a cross-platform and privacy strip.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FDFBFF"/>
+      <stop offset="1" stop-color="#EFEFFF"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="884" rx="28" fill="url(#bg)"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif">
+
+    <g>
+      <rect x="32" y="32" width="548" height="320" rx="24" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+      <rect x="60" y="60" width="56" height="56" rx="16" fill="#DBE1FF"/>
+      <g transform="translate(88 88)">
+        <path d="M0 -16 C1.5 -7 7 -1.5 16 0 C7 1.5 1.5 7 0 16 C-1.5 7 -7 1.5 -16 0 C-7 -1.5 -1.5 -7 0 -16 Z" fill="#1A6CFF"/>
+        <path d="M0 -16 C1.5 -7 7 -1.5 16 0 C7 1.5 1.5 7 0 16 C-1.5 7 -7 1.5 -16 0 C-7 -1.5 -1.5 -7 0 -16 Z" transform="translate(19 17) scale(0.4)" fill="#8CACFF"/>
+      </g>
+      <text x="132" y="98" font-size="28" font-weight="700" fill="#131C2C">AI Question Generation</text>
+      <g font-size="19" fill="#43434C">
+        <circle cx="68" cy="140" r="4" fill="#1A6CFF"/><text x="88" y="146">PDF, DOCX, XLSX, PPTX, EPUB, images &amp; more</text>
+        <circle cx="68" cy="185" r="4" fill="#1A6CFF"/><text x="88" y="191">5 question types with per-type count control</text>
+        <circle cx="68" cy="230" r="4" fill="#1A6CFF"/><text x="88" y="236">Difficulty, output language &amp; topic targeting</text>
+        <circle cx="68" cy="275" r="4" fill="#1A6CFF"/><text x="88" y="281">Smart batching + dedup for large documents</text>
+        <circle cx="68" cy="320" r="4" fill="#1A6CFF"/><text x="88" y="326">Any OpenAI-compatible API · XLSX / CSV export</text>
+      </g>
+    </g>
+
+    <g>
+      <rect x="620" y="32" width="548" height="320" rx="24" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+      <rect x="648" y="60" width="56" height="56" rx="16" fill="#DBE1FF"/>
+      <g transform="translate(676 88)">
+        <circle r="15" fill="none" stroke="#1A6CFF" stroke-width="3.5"/>
+        <path d="M-7 0 L-2 6 L8 -6" fill="none" stroke="#1A6CFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <text x="720" y="98" font-size="28" font-weight="700" fill="#131C2C">Practice Modes</text>
+      <g font-size="19" fill="#43434C">
+        <circle cx="656" cy="140" r="4" fill="#1A6CFF"/><text x="676" y="146">Sequential, random &amp; mock exams from any bank</text>
+        <circle cx="656" cy="185" r="4" fill="#1A6CFF"/><text x="676" y="191">Wrong-question review clears as you improve</text>
+        <circle cx="656" cy="230" r="4" fill="#1A6CFF"/><text x="676" y="236">Answer blind or flip through with answers</text>
+        <circle cx="656" cy="275" r="4" fill="#1A6CFF"/><text x="676" y="281">AI grades short answers; manual regrade OK</text>
+        <circle cx="656" cy="320" r="4" fill="#1A6CFF"/><text x="676" y="326">Import &amp; export banks via XLSX / CSV</text>
+      </g>
+    </g>
+
+    <g>
+      <rect x="32" y="372" width="548" height="320" rx="24" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+      <rect x="60" y="400" width="56" height="56" rx="16" fill="#DBE1FF"/>
+      <g transform="translate(88 428)">
+        <rect x="-11" y="-13" width="22" height="27" rx="4" fill="none" stroke="#1A6CFF" stroke-width="3.5"/>
+        <rect x="-5" y="-17" width="10" height="7" rx="3" fill="#1A6CFF"/>
+        <path d="M-5 -1 H5 M-5 6 H1" stroke="#1A6CFF" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <text x="132" y="438" font-size="28" font-weight="700" fill="#131C2C">Online Exams</text>
+      <g font-size="19" fill="#43434C">
+        <circle cx="68" cy="480" r="4" fill="#1A6CFF"/><text x="88" y="486">Compose from banks, per-type counts &amp; points</text>
+        <circle cx="68" cy="525" r="4" fill="#1A6CFF"/><text x="88" y="531">6-digit code or link — join from any browser</text>
+        <circle cx="68" cy="570" r="4" fill="#1A6CFF"/><text x="88" y="576">Timed auto-submit · progress survives refresh</text>
+        <circle cx="68" cy="615" r="4" fill="#1A6CFF"/><text x="88" y="621">Instant scoring + teacher results dashboard</text>
+        <circle cx="68" cy="660" r="4" fill="#1A6CFF"/><text x="88" y="666">Privacy-first relay: data deleted within 7 days</text>
+      </g>
+    </g>
+
+    <g>
+      <rect x="620" y="372" width="548" height="320" rx="24" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+      <rect x="648" y="400" width="56" height="56" rx="16" fill="#DBE1FF"/>
+      <g transform="translate(676 428)">
+        <circle cx="-3" cy="-3" r="11" fill="none" stroke="#1A6CFF" stroke-width="3.5"/>
+        <path d="M6 6 L15 15" stroke="#1A6CFF" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <text x="720" y="438" font-size="28" font-weight="700" fill="#131C2C">Search Modes</text>
+      <g font-size="19" fill="#43434C">
+        <circle cx="656" cy="480" r="4" fill="#1A6CFF"/><text x="676" y="486">Text search in local banks, optional AI answer</text>
+        <circle cx="656" cy="525" r="4" fill="#1A6CFF"/><text x="676" y="531">Photo search with on-device OCR — no upload</text>
+        <circle cx="656" cy="570" r="4" fill="#1A6CFF"/><text x="676" y="576">Camera live search matches in real time</text>
+        <circle cx="656" cy="615" r="4" fill="#1A6CFF"/><text x="676" y="621">Screen-record search + floating answers</text>
+        <circle cx="656" cy="660" r="4" fill="#1A6CFF"/><text x="676" y="666">Windows · macOS · Linux · Android (not iOS)</text>
+      </g>
+    </g>
+
+    <g>
+      <rect x="32" y="712" width="1136" height="140" rx="24" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+      <rect x="64" y="754" width="56" height="56" rx="16" fill="#DBE1FF"/>
+      <g transform="translate(92 782)">
+        <circle r="14" fill="none" stroke="#1A6CFF" stroke-width="3.5"/>
+        <ellipse rx="6.5" ry="14" fill="none" stroke="#1A6CFF" stroke-width="3"/>
+        <path d="M-14 0 H14" stroke="#1A6CFF" stroke-width="3"/>
+      </g>
+      <text x="136" y="791" font-size="26" font-weight="700" fill="#131C2C">Cross-Platform &amp; Privacy</text>
+      <g font-size="18" fill="#43434C">
+        <circle cx="564" cy="766" r="4" fill="#1A6CFF"/><text x="580" y="772">Desktop &amp; mobile apps</text>
+        <circle cx="564" cy="810" r="4" fill="#1A6CFF"/><text x="580" y="816">One-command Docker deploy</text>
+        <circle cx="864" cy="766" r="4" fill="#1A6CFF"/><text x="880" y="772">Local-first · AES-256-GCM keys</text>
+        <circle cx="864" cy="810" r="4" fill="#1A6CFF"/><text x="880" y="816">Bilingual UI · 中文 / English</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

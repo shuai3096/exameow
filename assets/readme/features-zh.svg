@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="884" viewBox="0 0 1200 884" role="img" aria-labelledby="title desc">
+  <title id="title">过了喵 Exameow 功能总览</title>
+  <desc id="desc">四个面板分别展示 AI 出题、刷题模式、在线考试与搜题模式，底部为跨平台与隐私说明条。</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FDFBFF"/>
+      <stop offset="1" stop-color="#EFEFFF"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="884" rx="28" fill="url(#bg)"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif">
+
+    <g>
+      <rect x="32" y="32" width="548" height="320" rx="24" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+      <rect x="60" y="60" width="56" height="56" rx="16" fill="#DBE1FF"/>
+      <g transform="translate(88 88)">
+        <path d="M0 -16 C1.5 -7 7 -1.5 16 0 C7 1.5 1.5 7 0 16 C-1.5 7 -7 1.5 -16 0 C-7 -1.5 -1.5 -7 0 -16 Z" fill="#1A6CFF"/>
+        <path d="M0 -16 C1.5 -7 7 -1.5 16 0 C7 1.5 1.5 7 0 16 C-1.5 7 -7 1.5 -16 0 C-7 -1.5 -1.5 -7 0 -16 Z" transform="translate(19 17) scale(0.4)" fill="#8CACFF"/>
+      </g>
+      <text x="132" y="98" font-size="28" font-weight="700" fill="#131C2C">AI 出题</text>
+      <g font-size="19" fill="#43434C">
+        <circle cx="68" cy="140" r="4" fill="#1A6CFF"/><text x="88" y="146">支持 PDF、DOCX、PPTX、EPUB、图片等格式</text>
+        <circle cx="68" cy="185" r="4" fill="#1A6CFF"/><text x="88" y="191">5 种题型，可按题型分别设置数量</text>
+        <circle cx="68" cy="230" r="4" fill="#1A6CFF"/><text x="88" y="236">难度、语言、知识点定向出题</text>
+        <circle cx="68" cy="275" r="4" fill="#1A6CFF"/><text x="88" y="281">大文档智能分批生成，自动去重</text>
+        <circle cx="68" cy="320" r="4" fill="#1A6CFF"/><text x="88" y="326">兼容任意 OpenAI 格式 API，导出 XLSX / CSV</text>
+      </g>
+    </g>
+
+    <g>
+      <rect x="620" y="32" width="548" height="320" rx="24" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+      <rect x="648" y="60" width="56" height="56" rx="16" fill="#DBE1FF"/>
+      <g transform="translate(676 88)">
+        <circle r="15" fill="none" stroke="#1A6CFF" stroke-width="3.5"/>
+        <path d="M-7 0 L-2 6 L8 -6" fill="none" stroke="#1A6CFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <text x="720" y="98" font-size="28" font-weight="700" fill="#131C2C">刷题模式</text>
+      <g font-size="19" fill="#43434C">
+        <circle cx="656" cy="140" r="4" fill="#1A6CFF"/><text x="676" y="146">顺序 / 随机练习，模拟考试自动组卷</text>
+        <circle cx="656" cy="185" r="4" fill="#1A6CFF"/><text x="676" y="191">错题自动记录，连续答对自动移出</text>
+        <circle cx="656" cy="230" r="4" fill="#1A6CFF"/><text x="676" y="236">做题 / 背题双模式自由切换</text>
+        <circle cx="656" cy="275" r="4" fill="#1A6CFF"/><text x="676" y="281">简答题 AI 判卷，支持人工改判</text>
+        <circle cx="656" cy="320" r="4" fill="#1A6CFF"/><text x="676" y="326">题库支持 XLSX / CSV 导入导出</text>
+      </g>
+    </g>
+
+    <g>
+      <rect x="32" y="372" width="548" height="320" rx="24" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+      <rect x="60" y="400" width="56" height="56" rx="16" fill="#DBE1FF"/>
+      <g transform="translate(88 428)">
+        <rect x="-11" y="-13" width="22" height="27" rx="4" fill="none" stroke="#1A6CFF" stroke-width="3.5"/>
+        <rect x="-5" y="-17" width="10" height="7" rx="3" fill="#1A6CFF"/>
+        <path d="M-5 -1 H5 M-5 6 H1" stroke="#1A6CFF" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <text x="132" y="438" font-size="28" font-weight="700" fill="#131C2C">在线考试</text>
+      <g font-size="19" fill="#43434C">
+        <circle cx="68" cy="480" r="4" fill="#1A6CFF"/><text x="88" y="486">本地题库组卷，按题型设置数量与分值</text>
+        <circle cx="68" cy="525" r="4" fill="#1A6CFF"/><text x="88" y="531">6 位校验码或链接，浏览器即开即考</text>
+        <circle cx="68" cy="570" r="4" fill="#1A6CFF"/><text x="88" y="576">限时自动交卷，刷新不丢进度</text>
+        <circle cx="68" cy="615" r="4" fill="#1A6CFF"/><text x="88" y="621">交卷即出分，教师成绩面板</text>
+        <circle cx="68" cy="660" r="4" fill="#1A6CFF"/><text x="88" y="666">隐私优先:考试数据最多保留 7 天</text>
+      </g>
+    </g>
+
+    <g>
+      <rect x="620" y="372" width="548" height="320" rx="24" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+      <rect x="648" y="400" width="56" height="56" rx="16" fill="#DBE1FF"/>
+      <g transform="translate(676 428)">
+        <circle cx="-3" cy="-3" r="11" fill="none" stroke="#1A6CFF" stroke-width="3.5"/>
+        <path d="M6 6 L15 15" stroke="#1A6CFF" stroke-width="4" stroke-linecap="round"/>
+      </g>
+      <text x="720" y="438" font-size="28" font-weight="700" fill="#131C2C">搜题模式</text>
+      <g font-size="19" fill="#43434C">
+        <circle cx="656" cy="480" r="4" fill="#1A6CFF"/><text x="676" y="486">文字搜题，本地题库秒查，支持 AI 解答</text>
+        <circle cx="656" cy="525" r="4" fill="#1A6CFF"/><text x="676" y="531">拍照搜题，本地 OCR 识别不上传</text>
+        <circle cx="656" cy="570" r="4" fill="#1A6CFF"/><text x="676" y="576">摄像头实时监听，拍屏即搜</text>
+        <circle cx="656" cy="615" r="4" fill="#1A6CFF"/><text x="676" y="621">录屏搜题，悬浮窗展示答案</text>
+        <circle cx="656" cy="660" r="4" fill="#1A6CFF"/><text x="676" y="666">支持桌面端与 Android(iOS 除外)</text>
+      </g>
+    </g>
+
+    <g>
+      <rect x="32" y="712" width="1136" height="140" rx="24" fill="#FFFFFF" stroke="#DBE1FF" stroke-width="2"/>
+      <rect x="64" y="754" width="56" height="56" rx="16" fill="#DBE1FF"/>
+      <g transform="translate(92 782)">
+        <circle r="14" fill="none" stroke="#1A6CFF" stroke-width="3.5"/>
+        <ellipse rx="6.5" ry="14" fill="none" stroke="#1A6CFF" stroke-width="3"/>
+        <path d="M-14 0 H14" stroke="#1A6CFF" stroke-width="3"/>
+      </g>
+      <text x="136" y="791" font-size="26" font-weight="700" fill="#131C2C">跨平台与隐私</text>
+      <g font-size="18" fill="#43434C">
+        <circle cx="564" cy="766" r="4" fill="#1A6CFF"/><text x="580" y="772">桌面端 + 移动端全平台</text>
+        <circle cx="564" cy="810" r="4" fill="#1A6CFF"/><text x="580" y="816">Docker 一键部署</text>
+        <circle cx="864" cy="766" r="4" fill="#1A6CFF"/><text x="880" y="772">本地优先 · AES-256-GCM 密钥</text>
+        <circle cx="864" cy="810" r="4" fill="#1A6CFF"/><text x="880" y="816">中英双语，自动切换</text>
+      </g>
+    </g>
+
+  </g>
+</svg>

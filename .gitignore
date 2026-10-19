@@ -1,0 +1,28 @@
+node_modules/
+target/
+frontend/dist/
+workers/public/
+workers/.wrangler/
+.DS_Store
+*.log
+*.jks
+test/
+gen/
+.gradle/
+.superpowers/
+.opencode/
+.worktrees/
+.env
+*.tar.gz
+
+# OCR model assets (downloaded by scripts/fetch-ocr-models.mjs)
+frontend/public/ocr/
+
+# Internal tooling (not part of the open-source release)
+docs/
+opencode.json
+release.keystore
+.secrets/
+.agents/
+skills-lock.json
+scripts/cf-seo/

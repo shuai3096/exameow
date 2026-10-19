@@ -1,0 +1,102 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nickzyl/tauri/refs/heads/master/crates/tauri-config-schema/schema.json",
+  "productName": "Exameow",
+  "version": "1.6.1",
+  "identifier": "com.exameow.app",
+  "build": {
+    "frontendDist": "../frontend/dist",
+    "devUrl": "http://localhost:5273",
+    "beforeBuildCommand": "pnpm build",
+    "beforeDevCommand": "pnpm dev"
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb", "appimage", "dmg", "app", "msi", "nsis"],
+    "createUpdaterArtifacts": true,
+    "icon": [
+      "icons/32x32.png",
+      "icons/64x64.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico",
+      "icons/icon.png",
+      "icons/Square30x30Logo.png",
+      "icons/Square44x44Logo.png",
+      "icons/Square71x71Logo.png",
+      "icons/Square89x89Logo.png",
+      "icons/Square107x107Logo.png",
+      "icons/Square142x142Logo.png",
+      "icons/Square150x150Logo.png",
+      "icons/Square284x284Logo.png",
+      "icons/Square310x310Logo.png",
+      "icons/StoreLogo.png"
+    ],
+    "macOS": {
+      "signingIdentity": "-",
+      "files": {
+        "Resources/zh-Hans.lproj/InfoPlist.strings": "locales/zh-Hans.lproj/InfoPlist.strings",
+        "Resources/zh-Hant.lproj/InfoPlist.strings": "locales/zh-Hans.lproj/InfoPlist.strings",
+        "Resources/en.lproj/InfoPlist.strings": "locales/en.lproj/InfoPlist.strings"
+      }
+    },
+    "windows": {
+      "nsis": {
+        "installMode": "currentUser"
+      }
+    }
+  },
+  "app": {
+    "macOSPrivateApi": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "Exameow",
+        "width": 1024,
+        "height": 768,
+        "minWidth": 320,
+        "minHeight": 480,
+        "create": false
+      },
+      {
+        "label": "record-overlay",
+        "title": "Recording Area",
+        "width": 700,
+        "height": 300,
+        "x": 162,
+        "y": 100,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "resizable": true,
+        "visible": false,
+        "url": "/src-windows/record-overlay",
+        "create": false
+      },
+      {
+        "label": "answer-float",
+        "title": "Answer",
+        "width": 340,
+        "height": 320,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "resizable": true,
+        "visible": false,
+        "url": "/src-windows/answer-float",
+        "create": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' http://localhost:* https://*"
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDE2MzM5OUJGNjU2RUE3REIKUldUYnAyNWx2NWt6RmlMY21VTk1vYXVYakt4bnBGZUI3RmkySThWQWplcHFxbzN1WTd6ak1iakcK",
+      "endpoints": [
+        "https://github.com/heshengtao/exameow/releases/latest/download/latest.json"
+      ]
+    }
+  }
+}

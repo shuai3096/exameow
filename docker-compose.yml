@@ -1,0 +1,21 @@
+services:
+  exameow:
+    build: .
+    container_name: exameow-server
+    ports:
+      - "3434:3000"
+    environment:
+      - AI_ENDPOINT=${AI_ENDPOINT:-https://api.openai.com/v1}
+      - AI_API_KEY=${AI_API_KEY:-sk-your-ai-key}
+      - AI_MODEL=${AI_MODEL:-gpt-4o}
+      - PORT=3000
+      - RUST_LOG=info
+      - ADMIN_TOKEN=${ADMIN_TOKEN:-pass}
+      - EXAM_DB_PATH=/app/data/exameow.db
+      - ADMIN_TOKEN_FILE=/app/data/admin_token.txt
+    volumes:
+      - exameow-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  exameow-data:

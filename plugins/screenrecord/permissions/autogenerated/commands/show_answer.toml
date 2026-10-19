@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-show-answer"
+description = "Enables the show_answer command without any pre-configured scope."
+commands.allow = ["show_answer"]
+
+[[permission]]
+identifier = "deny-show-answer"
+description = "Denies the show_answer command without any pre-configured scope."
+commands.deny = ["show_answer"]

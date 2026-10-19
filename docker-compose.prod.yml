@@ -1,0 +1,13 @@
+services:
+  exameow:
+    image: exameow-server:latest
+    container_name: exameow-server
+    ports:
+      - "3000:3000"
+    environment:
+      - AI_ENDPOINT=${AI_ENDPOINT}
+      - AI_API_KEY=${AI_API_KEY}
+      - AI_MODEL=${AI_MODEL}
+      - PORT=3000
+      - RUST_LOG=info
+    restart: unless-stopped

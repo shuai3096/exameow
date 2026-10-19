@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exameow (过了喵) — AI Exam Question Generator | Open Source & Local-First</title>
+    <meta name="description" content="Exameow is an AI-powered exam question generator. Upload study materials (PDF, DOCX, PPTX, images) and get exam questions in seconds via any OpenAI-compatible API. Open source, local-first, cross-platform." />
+    <meta name="keywords" content="AI exam generator, AI question generator, quiz maker, test generator, AI study tool, open source exam generator" />
+    <meta name="author" content="Exameow" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href="https://exam.superagentparty.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Exameow (过了喵) — AI Exam Question Generator" />
+    <meta property="og:description" content="Upload study materials and get exam-quality questions in seconds. Open source, local-first, cross-platform. Supports 10+ file formats and 5 question types." />
+    <meta property="og:image" content="https://exam.superagentparty.com/logo.png" />
+    <meta property="og:url" content="https://exam.superagentparty.com/" />
+    <meta property="og:site_name" content="Exameow" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Exameow — AI Exam Question Generator" />
+    <meta name="twitter:description" content="Upload study materials and get exam questions in seconds. Open source, local-first." />
+    <meta name="twitter:image" content="https://exam.superagentparty.com/logo.png" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Exameow",
+      "alternateName": "过了喵",
+      "url": "https://exam.superagentparty.com/",
+      "description": "AI-powered exam question generator. Upload study materials and get exam questions generated via any OpenAI-compatible API. Open source, local-first, cross-platform.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Windows, macOS, Linux, Android, Web",
+      "author": {
+        "@type": "Organization",
+        "name": "Exameow",
+        "url": "https://github.com/heshengtao/exameow"
+      },
+      "license": "https://www.apache.org/licenses/LICENSE-2.0",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "softwareVersion": "1.2.1",
+      "sameAs": [
+        "https://github.com/heshengtao/exameow",
+        "https://hub.docker.com/r/ailm32442/exameow"
+      ]
+    }
+    </script>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('exameow-theme');
+          if (t !== 'system' && t !== 'light' && t !== 'dark') {
+            var legacy = localStorage.getItem('exameow-dark');
+            t = legacy === '1' ? 'dark' : legacy === '0' ? 'light' : 'system';
+          }
+          var dark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark', dark);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

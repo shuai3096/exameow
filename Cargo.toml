@@ -1,0 +1,15 @@
+[workspace]
+resolver = "2"
+members = [
+    "packages/core",
+    "packages/server",
+    "src-tauri",
+    "plugins/screenrecord",
+]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

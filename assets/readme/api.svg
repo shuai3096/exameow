@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="312" viewBox="0 0 1200 312" role="img" aria-labelledby="title desc">
+  <title id="title">Exameow API endpoints</title>
+  <desc id="desc">Table of six HTTP API endpoints with method, path and description.</desc>
+
+  <defs>
+    <clipPath id="card"><rect x="0" y="0" width="1200" height="312" rx="28"/></clipPath>
+  </defs>
+
+  <rect width="1200" height="312" rx="28" fill="#FFFFFF"/>
+  <g clip-path="url(#card)">
+    <rect x="0" y="0" width="1200" height="48" fill="#EFEFFF"/>
+    <g stroke="#EDF1FF" stroke-width="1.5">
+      <line x1="32" y1="92" x2="1168" y2="92"/>
+      <line x1="32" y1="136" x2="1168" y2="136"/>
+      <line x1="32" y1="180" x2="1168" y2="180"/>
+      <line x1="32" y1="224" x2="1168" y2="224"/>
+      <line x1="32" y1="268" x2="1168" y2="268"/>
+    </g>
+  </g>
+  <rect x="1" y="1" width="1198" height="310" rx="27" fill="none" stroke="#DBE1FF" stroke-width="2"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif">
+    <g font-size="16" font-weight="700" fill="#0059BE" letter-spacing="1.5">
+      <text x="64" y="31">METHOD</text>
+      <text x="190" y="31">PATH</text>
+      <text x="580" y="31">DESCRIPTION</text>
+    </g>
+    <g font-size="15" font-weight="700" text-anchor="middle">
+      <rect x="64" y="57" width="72" height="26" rx="13" fill="#1A6CFF"/><text x="100" y="75" fill="#FFFFFF">GET</text>
+      <rect x="64" y="101" width="72" height="26" rx="13" fill="#F2994A"/><text x="100" y="119" fill="#FFFFFF">POST</text>
+      <rect x="64" y="145" width="72" height="26" rx="13" fill="#1A6CFF"/><text x="100" y="163" fill="#FFFFFF">GET</text>
+      <rect x="64" y="189" width="72" height="26" rx="13" fill="#F2994A"/><text x="100" y="207" fill="#FFFFFF">POST</text>
+      <rect x="64" y="233" width="72" height="26" rx="13" fill="#F2994A"/><text x="100" y="251" fill="#FFFFFF">POST</text>
+      <rect x="64" y="277" width="72" height="26" rx="13" fill="#1A6CFF"/><text x="100" y="295" fill="#FFFFFF">GET</text>
+    </g>
+    <g font-size="17">
+      <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#131C2C">
+        <text x="190" y="76">/api/models</text>
+        <text x="190" y="120">/api/generate</text>
+        <text x="190" y="164">/api/export</text>
+        <text x="190" y="208">/api/export/xlsx</text>
+        <text x="190" y="252">/api/config/save</text>
+        <text x="190" y="296">/api/config/load</text>
+      </g>
+      <g fill="#43434C">
+        <text x="580" y="76">List available AI models</text>
+        <text x="580" y="120">Upload file + generate exam questions</text>
+        <text x="580" y="164">Export questions as CSV</text>
+        <text x="580" y="208">Export questions as XLSX</text>
+        <text x="580" y="252">Save AI configuration</text>
+        <text x="580" y="296">Load saved AI configuration</text>
+      </g>
+    </g>
+  </g>
+</svg>

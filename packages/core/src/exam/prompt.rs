@@ -1,0 +1,255 @@
+use crate::exam::{Difficulty, ExamParams, QuestionType};
+use crate::error::CoreError;
+use crate::ai::AIClient;
+use crate::exam::Question;
+
+pub fn build_system_prompt(auto_chapter: bool) -> String {
+    let chapter_rule = if auto_chapter { r#"
+10. When chapter tagging is enabled, also include "chapter" in every question: use the original chapter title from the material, or a concise knowledge topic in the requested language if there are no headings. Use an empty string if uncertain. Reuse the same name for the same chapter within and across batches."# } else { "" };
+    format!(
+        r#"You are an expert exam question generator. Generate questions based on the provided document content.
+
+## Critical Rules (MUST follow)
+- EVERY question MUST be unique — do NOT generate two questions that test the same concept, fact, or sentence.
+- Cover DIFFERENT parts of the document for each question. Avoid clustering questions on the same paragraph.
+- Vary question wording, angles, and tested knowledge points.
+- When the question stem or analysis refers to the document, ALWAYS use the specific document name provided — NEVER use vague phrases like "the document", "the text", "the passage", "the article", or "the material".
+
+## Output Rules
+1. Respond ONLY with a valid JSON array — no explanation, no markdown fences.
+2. Each question object MUST have these required fields:
+   - "id": a short unique identifier string
+   - "type": one of [{}]
+   - "stem": the question text
+   - "options": array of option strings (required for single_choice/multi_choice/true_false; empty array for others)
+   - "answer": the correct answer
+   - "analysis": brief explanation of the answer (can be empty string for fill_blank/short_answer)
+3. For single_choice: exactly 4 options, one correct.
+4. For multi_choice: exactly 4 options, at least one correct (list correct letters separated by comma in answer).
+5. For true_false: options ["True", "False"], answer is "True" or "False".
+6. For fill_blank: answer is the exact word/phrase to fill in.
+7. For short_answer: answer is a concise reference answer.
+8. All questions must be based on the document content.
+9. Use the specified language for questions.{chapter_rule}
+"#,
+        vec![
+            QuestionType::SingleChoice,
+            QuestionType::MultiChoice,
+            QuestionType::TrueFalse,
+            QuestionType::FillBlank,
+            QuestionType::ShortAnswer,
+        ]
+        .iter()
+        .map(|t| t.to_string())
+        .collect::<Vec<_>>()
+        .join(", ")
+    )
+}
+
+pub fn build_user_prompt(text: &str, params: &ExamParams) -> String {
+    let difficulty_str = match params.difficulty {
+        Difficulty::Easy => "easy questions suitable for beginners",
+        Difficulty::Medium => "moderate difficulty questions requiring understanding",
+        Difficulty::Hard => "challenging questions requiring deep analysis",
+    };
+
+    let chapter_note = if params.auto_chapter {
+        format!("\nChapter tagging is enabled. Previously used chapter names (reuse when applicable): {}", serde_json::to_string(&params.chapter_names.as_deref().unwrap_or(&[])).unwrap())
+    } else {
+        String::new()
+    };
+
+    let topic_note = match &params.topic_filter {
+        Some(topic) => format!("\nFocus on this topic: {topic}"),
+        None => String::new(),
+    };
+
+    let batch_note = match params.batch_index {
+        Some(idx) if params.batch_total.unwrap_or(1) > 1 => {
+            format!(
+                "\nThis is batch {}/{} of the document. Focus on different content than other batches would.",
+                idx, params.batch_total.unwrap_or(1)
+            )
+        }
+        _ => String::new(),
+    };
+
+    let doc_name = match &params.source_name {
+        Some(name) if name.contains('、') => format!("\nThe documents are collectively titled: {name}\nWhen questions need to reference a specific document, use its individual title above — do NOT say \"the document\" or \"the text\".", name = name),
+        Some(name) => format!("\nThe document title is: {name}\nWhen questions need to reference this document, use \"{name}\" — do NOT say \"the document\" or \"the text\".", name = name),
+        None => String::new(),
+    };
+
+    let custom_note = match &params.custom_prompt {
+        Some(p) if !p.trim().is_empty() => format!(
+            "\n\n## Additional Instructions (user-provided, highest priority)\n{p}\n\n## Document rules still apply"
+        ),
+        _ => String::new(),
+    };
+
+    let max_chars = 32000usize;
+    let total_chars = text.chars().count();
+    let text_section = if total_chars > max_chars {
+        let head_chars = max_chars * 6 / 10;
+        let tail_chars = max_chars - head_chars;
+        let mut head_end = text.len();
+        if let Some((idx, _)) = text.char_indices().nth(head_chars) {
+            head_end = idx;
+        }
+        let head = &text[..head_end];
+        let tail_start = {
+            let skip = total_chars.saturating_sub(tail_chars);
+            text.char_indices().nth(skip).map(|(i, _)| i).unwrap_or(text.len())
+        };
+        let tail = if tail_start > head_end + 100 {
+            format!("\n\n...(middle omitted)...\n\n{}", &text[tail_start..])
+        } else {
+            text[head_end..].to_string()
+        };
+        format!("{}{}", head, tail)
+    } else {
+        text.to_string()
+    };
+
+    let count_instruction = if let Some(ref tc) = params.type_counts {
+        let mut parts: Vec<String> = vec![];
+        let mut total: u32 = 0;
+        for (key, &cnt) in tc {
+            if cnt > 0 {
+                parts.push(format!("{cnt} {key} questions"));
+                total += cnt;
+            }
+        }
+        format!(
+            "Generate exactly the following breakdown of {total} questions:\n{per_type}",
+            total = total,
+            per_type = parts.join("\n")
+        )
+    } else {
+        let types_list = params
+            .question_types
+            .iter()
+            .map(|t| t.to_string())
+            .collect::<Vec<_>>()
+            .join(", ");
+        format!(
+            "Generate {count} questions.\nQuestion types: {types}",
+            count = params.count,
+            types = types_list,
+        )
+    };
+
+    format!(
+        r#"{count_instruction}
+Difficulty: {difficulty_str}
+Language: {language}{topic_note}{chapter_note}{batch_note}{doc_name}{custom_note}
+
+DOCUMENT CONTENT:
+{text_content}
+"#,
+        count_instruction = count_instruction,
+        difficulty_str = difficulty_str,
+        language = params.language,
+        topic_note = topic_note,
+        chapter_note = chapter_note,
+        batch_note = batch_note,
+        doc_name = doc_name,
+        custom_note = custom_note,
+        text_content = text_section,
+    )
+}
+
+pub fn parse_questions(json_str: &str) -> Result<Vec<Question>, CoreError> {
+    let cleaned = json_str
+        .trim()
+        .trim_start_matches("```json")
+        .trim_start_matches("```")
+        .trim_end_matches("```")
+        .trim();
+
+    let questions: Vec<Question> = serde_json::from_str(cleaned)
+        .map_err(|e| CoreError::Exam(format!("JSON parse error: {e}")))?;
+
+    if questions.is_empty() {
+        return Err(CoreError::Exam("AI returned empty questions array".to_string()));
+    }
+
+    Ok(questions)
+}
+
+pub fn normalize_question_difficulty(questions: &mut [Question], difficulty: &Difficulty) {
+    for question in questions {
+        question.difficulty = Some(difficulty.clone());
+    }
+}
+
+pub async fn generate_exam(
+    client: &AIClient,
+    text: &str,
+    params: &ExamParams,
+    model: &str,
+) -> Result<Vec<Question>, CoreError> {
+    let doc_text = params.text.as_deref().unwrap_or(text);
+    let system_prompt = build_system_prompt(params.auto_chapter);
+    let user_prompt = build_user_prompt(doc_text, params);
+    let response = client
+        .chat_with_max_tokens(&system_prompt, &user_prompt, model, params.max_tokens)
+        .await?;
+    let mut questions = parse_questions(&response)?;
+    normalize_question_difficulty(&mut questions, &params.difficulty);
+    Ok(questions)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::exam::{Difficulty, ExamParams, QuestionType};
+
+    fn sample_params(custom_prompt: Option<String>) -> ExamParams {
+        ExamParams {
+            question_types: vec![QuestionType::SingleChoice],
+            count: 5,
+            difficulty: Difficulty::Medium,
+            language: "zh-CN".into(),
+            topic_filter: None,
+            type_counts: None,
+            text: Some("第1章 内容。".repeat(20)),
+            batch_index: None,
+            batch_total: None,
+            source_name: Some("单元1".into()),
+            auto_chapter: false,
+            chapter_names: None,
+            custom_prompt,
+            max_tokens: None,
+        }
+    }
+
+    #[test]
+    fn custom_prompt_is_injected_when_present() {
+        let p = build_user_prompt("x", &sample_params(Some("忽略参考文献。".into())));
+        assert!(p.contains("## Additional Instructions (user-provided, highest priority)"));
+        assert!(p.contains("忽略参考文献。"));
+        assert!(p.contains("DOCUMENT CONTENT:"));
+    }
+
+    #[test]
+    fn custom_prompt_absent_leaves_prompt_clean() {
+        let p = build_user_prompt("x", &sample_params(None));
+        assert!(!p.contains("Additional Instructions"));
+        assert!(p.contains("DOCUMENT CONTENT:"));
+    }
+
+    #[test]
+    fn chinese_text_below_char_budget_is_not_truncated() {
+        // 12_000 CJK chars ≈ 36_000 bytes > 32_000: must NOT be truncated
+        // (counts characters, not bytes).
+        let body = "中".repeat(12_000);
+        let p = build_user_prompt(&body, &sample_params(None));
+        assert!(!p.contains("middle omitted"));
+        assert!(p.contains("DOCUMENT CONTENT:"));
+        // Guard must still fire for genuinely oversized text (>32000 chars).
+        let huge = "字".repeat(32_100);
+        let p2 = build_user_prompt(&huge, &sample_params(None));
+        assert!(p2.contains("middle omitted"));
+    }
+}

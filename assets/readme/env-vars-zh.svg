@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="444" viewBox="0 0 1200 444" role="img" aria-labelledby="title desc">
+  <title id="title">过了喵 Exameow 环境变量</title>
+  <desc id="desc">九个环境变量的默认值与说明表格。</desc>
+
+  <defs>
+    <clipPath id="card"><rect x="0" y="0" width="1200" height="444" rx="28"/></clipPath>
+  </defs>
+
+  <rect width="1200" height="444" rx="28" fill="#FFFFFF"/>
+  <g clip-path="url(#card)">
+    <rect x="0" y="0" width="1200" height="48" fill="#EFEFFF"/>
+    <g stroke="#EDF1FF" stroke-width="1.5">
+      <line x1="32" y1="92" x2="1168" y2="92"/>
+      <line x1="32" y1="136" x2="1168" y2="136"/>
+      <line x1="32" y1="180" x2="1168" y2="180"/>
+      <line x1="32" y1="224" x2="1168" y2="224"/>
+      <line x1="32" y1="268" x2="1168" y2="268"/>
+      <line x1="32" y1="312" x2="1168" y2="312"/>
+      <line x1="32" y1="356" x2="1168" y2="356"/>
+      <line x1="32" y1="400" x2="1168" y2="400"/>
+    </g>
+  </g>
+  <rect x="1" y="1" width="1198" height="442" rx="27" fill="none" stroke="#DBE1FF" stroke-width="2"/>
+
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif">
+    <g font-size="16" font-weight="700" fill="#0059BE" letter-spacing="1.5">
+      <text x="64" y="31">变量</text>
+      <text x="420" y="31">默认值</text>
+      <text x="760" y="31">说明</text>
+    </g>
+    <g font-size="17">
+      <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#131C2C">
+        <text x="64" y="76">AI_ENDPOINT</text>
+        <text x="64" y="120">AI_API_KEY</text>
+        <text x="64" y="164">AI_MODEL</text>
+        <text x="64" y="208">PORT</text>
+        <text x="64" y="252">STATIC_DIR</text>
+        <text x="64" y="296">ADMIN_TOKEN</text>
+        <text x="64" y="340">EXAM_DB_PATH</text>
+        <text x="64" y="384">ADMIN_TOKEN_FILE</text>
+        <text x="64" y="428">RUST_LOG</text>
+      </g>
+      <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16" fill="#73737C">
+        <text x="420" y="76">https://api.openai.com/v1</text>
+        <text x="420" y="120">—</text>
+        <text x="420" y="164">gpt-4o</text>
+        <text x="420" y="208">3000</text>
+        <text x="420" y="252">/app/static</text>
+        <text x="420" y="296">pass</text>
+        <text x="420" y="340">/app/data/exameow.db</text>
+        <text x="420" y="384">/app/data/admin_token.txt</text>
+        <text x="420" y="428">info</text>
+      </g>
+      <g fill="#43434C">
+        <text x="760" y="76">OpenAI 兼容 API 地址</text>
+        <text x="760" y="120">AI API 密钥</text>
+        <text x="760" y="164">默认模型</text>
+        <text x="760" y="208">服务端口</text>
+        <text x="760" y="252">静态文件目录</text>
+        <text x="760" y="296">管理页密钥;首次登录强制修改</text>
+        <text x="760" y="340">在线考试 SQLite 路径</text>
+        <text x="760" y="384">修改后密钥的持久化文件</text>
+        <text x="760" y="428">日志级别</text>
+      </g>
+    </g>
+  </g>
+</svg>

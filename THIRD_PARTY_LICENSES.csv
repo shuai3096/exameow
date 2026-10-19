@@ -1,0 +1,67 @@
+Category,Name,Version,License,License URL,Usage,Notes
+npm,@choochmeque/tauri-plugin-sharekit-api,0.4.0-rc.5,MIT,https://spdx.org/licenses/MIT.html,runtime,Frontend Tauri share plugin
+npm,@exameow/shared,workspace:*,Proprietary,,runtime,Self-developed workspace package
+npm,@heroicons/vue,^2.2.0,MIT,https://github.com/tailwindlabs/heroicons/blob/master/LICENSE,runtime,SVG icon components (MIT)
+npm,@tauri-apps/api,^2.11.1,Apache-2.0,https://github.com/tauri-apps/tauri/blob/dev/core/tauri/LICENSE.spdx,runtime,Tauri frontend API
+npm,@tauri-apps/plugin-dialog,^2.7.1,MIT,https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/dialog/LICENSE,runtime,Tauri dialog plugin
+npm,@tauri-apps/plugin-fs,^2.2.0,MIT,https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/fs/LICENSE,runtime,Tauri filesystem plugin
+npm,@tauri-apps/plugin-opener,^2.5.4,MIT,https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/opener/LICENSE,runtime,Tauri opener plugin
+npm,mammoth,^1.12.0,BSD-2-Clause,https://github.com/mwilliamson/mammoth.js/blob/master/LICENSE,runtime,DOCX to HTML conversion
+npm,onnxruntime-web,^1.27.0,MIT,https://github.com/microsoft/onnxruntime/blob/main/LICENSE,runtime,ONNX inference engine
+npm,pdfjs-dist,^6.1.200,Apache-2.0,https://github.com/nicbarker/pdfjs-dist/blob/master/LICENSE,runtime,Mozilla PDF.js distribution
+npm,pinia,^3.0.4,MIT,https://github.com/vuejs/pinia/blob/main/LICENSE,runtime,Vue state management
+npm,ppu-paddle-ocr,^6.1.0,MIT,https://github.com/PT-Perkasa-Pilar-Utama/ppu-paddle-ocr/blob/main/LICENSE,runtime,In-browser PaddleOCR
+npm,vue,^3.5.38,MIT,https://github.com/vuejs/core/blob/main/LICENSE,runtime,Frontend framework
+npm,vue-router,^5.1.0,MIT,https://github.com/vuejs/router/blob/main/LICENSE,runtime,Vue Router
+npm,xlsx,^0.18.5,Apache-2.0,https://github.com/SheetJS/sheetjs/blob/master/LICENSE,runtime,Spreadsheet export/parse
+npm,@tauri-apps/cli,^2.11.4,Apache-2.0,https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-cli/LICENSE.spdx,dev,Build tool
+npm,@tsconfig/node24,^24.0.4,MIT,https://github.com/tsconfig/bases/blob/main/LICENSE,dev,TypeScript config
+npm,@types/node,^24.13.2,MIT,https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/LICENSE,dev,Node.js type definitions
+npm,@vitejs/plugin-vue,^6.0.7,MIT,https://github.com/vitejs/vite-plugin-vue/blob/main/LICENSE,dev,Vite Vue plugin
+npm,@vue/tsconfig,^0.9.1,MIT,https://github.com/vuejs/tsconfig/blob/main/LICENSE,dev,Vue TypeScript config
+npm,autoprefixer,^10.5.2,MIT,https://github.com/postcss/autoprefixer/blob/main/LICENSE,dev,CSS vendor prefix tool
+npm,cross-env,^10.1.0,MIT,https://github.com/kentcdodds/cross-env/blob/master/LICENSE,dev,Cross-platform env vars
+npm,npm-run-all2,^9.0.2,MIT,https://github.com/bcomnes/npm-run-all2/blob/master/LICENSE,dev,Run npm scripts in parallel
+npm,postcss,^8.5.16,MIT,https://github.com/postcss/postcss/blob/main/LICENSE,dev,CSS processor
+npm,tailwindcss,^3.4.19,MIT,https://github.com/tailwindlabs/tailwindcss/blob/master/LICENSE,dev,CSS framework
+npm,typescript,~6.0.0,Apache-2.0,https://github.com/microsoft/TypeScript/blob/main/LICENSE.txt,dev,TypeScript compiler
+npm,vite,^8.0.16,MIT,https://github.com/vitejs/vite/blob/main/LICENSE,dev,Bundler
+npm,vite-plugin-vue-devtools,^8.1.2,MIT,https://github.com/webfansplz/vite-plugin-vue-devtools/blob/main/LICENSE,dev,Vue devtools plugin
+npm,vue-tsc,^3.3.5,MIT,https://github.com/vuejs/language-tools/blob/master/LICENSE,dev,Vue Type checker
+npm,hono,^4.7.0,MIT,https://github.com/honojs/hono/blob/main/LICENSE,Cloudflare Workers runtime,HTTP framework for Workers
+npm,@cloudflare/workers-types,^5.20260710.0,Apache-2.0,https://github.com/cloudflare/workers-types/blob/master/LICENSE,Cloudflare Workers dev,TypeScript types
+npm,typescript,~5.8.0,Apache-2.0,https://github.com/microsoft/TypeScript/blob/main/LICENSE.txt,Cloudflare Workers dev,TypeScript compiler
+npm,wrangler,^4.10.0,Apache-2.0,https://github.com/cloudflare/workers-sdk/blob/main/LICENSE,Cloudflare Workers dev,CLI deployment tool
+Rust,serde,1,MIT / Apache-2.0,https://github.com/serde-rs/serde/blob/master/LICENSE-APACHE,runtime,Serialization framework
+Rust,serde_json,1,MIT / Apache-2.0,https://github.com/serde-rs/json/blob/master/LICENSE-APACHE,runtime,JSON serialization
+Rust,reqwest,0.12,MIT / Apache-2.0,https://github.com/seanmonstar/reqwest/blob/master/LICENSE-APACHE,runtime,HTTP client (rustls-tls)
+Rust,csv,1,Unlicense / MIT,https://github.com/BurntSushi/rust-csv/blob/master/LICENSE-UNLICENSE,runtime,CSV parsing
+Rust,lopdf,0.34,MIT,https://github.com/J-F-Liu/lopdf/blob/master/LICENSE,runtime,PDF manipulation
+Rust,pdf-extract,0.7,MIT / Apache-2.0,https://github.com/jrmuizel/pdf-extract/blob/master/LICENSE-APACHE,runtime,PDF text extraction
+Rust,quick-xml,0.37,MIT,https://github.com/tafia/quick-xml/blob/master/LICENSE,runtime,XML parser
+Rust,zip,2,MIT / Apache-2.0,https://github.com/zip-rs/zip2/blob/master/LICENSE-APACHE,runtime,ZIP archive handling
+Rust,uuid,1,MIT / Apache-2.0,https://github.com/uuid-rs/uuid/blob/main/LICENSE-APACHE,runtime,Unique ID generation
+Rust,base64,0.22,MIT / Apache-2.0,https://github.com/alicemaz/rust-base64/blob/master/LICENSE-APACHE,runtime,Base64 encoding
+Rust,ring,0.17,Apache-2.0 AND ISC,https://github.com/briansmith/ring/blob/main/LICENSE,runtime,Cryptography library
+Rust,thiserror,2,MIT / Apache-2.0,https://github.com/dtolnay/thiserror/blob/master/LICENSE-APACHE,runtime,Error derive macro
+Rust,encoding_rs,0.8,MIT / Apache-2.0 / Unlicense,https://github.com/hsivonen/encoding_rs/blob/master/COPYRIGHT,runtime,Character encoding
+Rust,calamine,0.26,MIT / Apache-2.0,https://github.com/tafia/calamine/blob/master/LICENSE-APACHE,runtime,Excel file reading
+Rust,tokio,1,MIT,https://github.com/tokio-rs/tokio/blob/master/LICENSE,runtime,Async runtime
+Rust,axum,0.8,MIT,https://github.com/tokio-rs/axum/blob/main/LICENSE,runtime,HTTP framework
+Rust,tower-http,0.6,MIT / Apache-2.0,https://github.com/tower-rs/tower-http/blob/master/LICENSE-APACHE,runtime,HTTP middleware
+Rust,tempfile,3,MIT / Apache-2.0,https://github.com/Stebalien/tempfile/blob/master/LICENSE-APACHE,runtime,Temporary file handling
+Rust,tauri-build,2,Apache-2.0 / MIT,https://github.com/tauri-apps/tauri/blob/dev/crates/tauri-build/LICENSE.spdx,build,Build script
+Rust,tauri,2,Apache-2.0 / MIT,https://github.com/tauri-apps/tauri/blob/dev/core/tauri/LICENSE.spdx,runtime,Desktop/mobile framework
+Rust,tauri-plugin-dialog,2,MIT / Apache-2.0,https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/dialog/LICENSE,runtime,Native dialog
+Rust,tauri-plugin-fs,2,MIT / Apache-2.0,https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/fs/LICENSE,runtime,Filesystem access
+Rust,tauri-plugin-opener,2,MIT / Apache-2.0,https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/opener/LICENSE,runtime,Open files/URLs
+Rust,tauri-plugin-sharekit,0.3,MIT,https://github.com/Choochmeque/tauri-plugin-sharekit/blob/main/LICENSE,runtime,Share functionality
+Rust,image,0.25,MIT / Apache-2.0,https://github.com/image-rs/image/blob/master/LICENSE-APACHE,runtime,Image processing (JPEG)
+Rust,xcap,0.5,Apache-2.0,https://github.com/nashaofu/xcap/blob/master/LICENSE,runtime,Screen capture
+Rust,objc,0.2,MIT,https://github.com/SSheldon/rust-objc/blob/master/LICENSE.txt,runtime,macOS/iOS Objective-C bridge
+Rust,tauri-plugin,2,MIT / Apache-2.0,https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/plugin/LICENSE,build,Plugin build helpers
+Font,Inter (Google Fonts),N/A,OFL-1.1,https://github.com/rsms/inter/blob/master/LICENSE.txt,runtime,UI font loaded from Google Fonts CDN
+CDN,jsDelivr (ONNX Runtime WASM),N/A,MIT,https://github.com/microsoft/onnxruntime/blob/main/LICENSE,runtime,CDN hosting ORT WASM files
+Model,PaddleOCR (detection.onnx),N/A,Apache-2.0,https://github.com/PaddlePaddle/PaddleOCR/blob/main/LICENSE,runtime,OCR detection model
+Model,PaddleOCR (recognition.onnx),N/A,Apache-2.0,https://github.com/PaddlePaddle/PaddleOCR/blob/main/LICENSE,runtime,OCR recognition model
+Model,PaddleOCR (dict.txt),N/A,Apache-2.0,https://github.com/PaddlePaddle/PaddleOCR/blob/main/LICENSE,runtime,OCR character dictionary
