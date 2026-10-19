@@ -75,3 +75,15 @@ jobs:
             ghcr.io/shuai3096/exameow:${{ github.sha }}
           cache-from: type=gha,scope=exameow
           cache-to: type=gha,mode=max,scope=exameow
+
+      - name: Export image as tar
+        run: |
+          docker pull ghcr.io/shuai3096/exameow:latest
+          docker save ghcr.io/shuai3096/exameow:latest -o exameow-image.tar
+          ls -lh exameow-image.tar
+
+      - name: Upload image tar
+        uses: actions/upload-artifact@v4
+        with:
+          name: exameow-image
+          path: exameow-image.tar
