@@ -5,6 +5,7 @@ import { analyzeCSV, analyzeExcel, parseWithMapping } from '@/utils/importParser
 import type { ColumnMapping, ImportAnalysis } from '@/utils/importParser'
 import { usePracticeHistoryStore } from '@/stores/practiceHistory'
 import { matchPracticeFilter, reconcileMockConfig } from '@/utils/practiceFilter'
+import { httpApi } from '@/api/http'
 
 const STORAGE_KEY = 'exameow-banks'
 const SESSION_KEY = 'exameow-practice-session'
@@ -167,64 +168,103 @@ export const usePracticeStore = defineStore('practice', () => {
   }
 
   function saveGeneratedAsBank(questions: Question[], sourceName: string) {
-    if (questions.length === 0) return
-    const today = new Date()
-    const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
-    const bank: QuestionBank = {
-      id: generateId(),
-      name: `AI 出题 - ${dateStr} (${sourceName || '题库'})`,
-      questions,
-      createdAt: today.getTime(),
-      source: 'ai-generated',
-    }
-    addBank(bank)
-  }
-
-  function startSession(bankId: string, mode: PracticeMode, mockConfig?: MockExamConfig, customQuestions?: Question[], filter?: PracticeFilter): boolean {
-    const bank = getBank(bankId)
-    if (!bank) return false
-
-    const baseQuestions = customQuestions ?? applyPracticeFilter(bank.questions, filter)
-    const normalizedMockConfig = mockConfig
-      ? reconcileMockConfig(mockConfig, baseQuestions)
-      : undefined
-    let questions: Question[]
-    if (customQuestions) {
-      questions = customQuestions
-    } else if (mode === 'mock' && normalizedMockConfig) {
-      questions = generateMockQuestions({ ...bank, questions: baseQuestions }, normalizedMockConfig)
-    } else if (mode === 'sequential') {
-      questions = [...baseQuestions]
-    } else {
-      questions = shuffleArray([...baseQuestions])
+      if (questions.length === 0) return
+      const today = new Date()
+      const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
+      const bank: QuestionBank = {
+        id: generateId(),
+        name: `AI 出题 - ${dateStr} (${sourceName || '题库'})`,
+        questions,
+        createdAt: today.getTime(),
+        source: 'ai-generated',
+      }
+      addBank(bank)
     }
 
-    if (mode === 'random') {
-      questions = shuffleOptions(questions)
+    // 服务端题库同步：从 NAS 拉取 /api/bank 下的题库，合并进本地（仅当本地没有或数量变化时更新）
+    const SERVER_BANK_PREFIX = 'server:'
+    async function syncServerBanks(): Promise<number> {
+      let list: { bank: string; count: number }[]
+      try {
+        list = await httpApi.listServerBanks()
+      } catch {
+        return 0 // 非服务端环境（Tauri/纯前端）或服务不可达，静默跳过
+      }
+      if (!list || list.length === 0) return 0
+
+      let syncedCount = 0
+      for (const info of list) {
+        const existing = banks.value.find(b => b.id === `${SERVER_BANK_PREFIX}${info.bank}`)
+        if (existing && existing.questions.length === info.count) continue // 已同步且未变化
+        try {
+          const detail = await httpApi.getServerBank(info.bank)
+          const bank: QuestionBank = {
+            id: `${SERVER_BANK_PREFIX}${info.bank}`,
+            name: info.bank,
+            questions: detail.questions,
+            createdAt: existing?.createdAt ?? Date.now(),
+            source: 'csv-import',
+          }
+          if (existing) {
+            existing.questions = bank.questions
+            existing.name = bank.name
+          } else {
+            banks.value.push(bank)
+          }
+          syncedCount++
+        } catch {
+          // 单个题库拉取失败，跳过不影响其他
+        }
+      }
+      if (syncedCount > 0) saveBanks(banks.value)
+      return syncedCount
     }
 
-    if (questions.length === 0) return false
+    function startSession(bankId: string, mode: PracticeMode, mockConfig?: MockExamConfig, customQuestions?: Question[], filter?: PracticeFilter): boolean {
+      const bank = getBank(bankId)
+      if (!bank) return false
 
-    const sessionQuestions = questions.map((q, i) => ({
-      question: { ...q, id: `${q.id}-s${i}` },
-      userAnswer: null as string | null,
-      isCorrect: null as boolean | null,
-      submitted: false,
-    }))
+      const baseQuestions = customQuestions ?? applyPracticeFilter(bank.questions, filter)
+      const normalizedMockConfig = mockConfig
+        ? reconcileMockConfig(mockConfig, baseQuestions)
+        : undefined
+      let questions: Question[]
+      if (customQuestions) {
+        questions = customQuestions
+      } else if (mode === 'mock' && normalizedMockConfig) {
+        questions = generateMockQuestions({ ...bank, questions: baseQuestions }, normalizedMockConfig)
+      } else if (mode === 'sequential') {
+        questions = [...baseQuestions]
+      } else {
+        questions = shuffleArray([...baseQuestions])
+      }
 
-    session.value = {
-      bankId,
-      mode,
-      questions: sessionQuestions,
-      currentIndex: 0,
-      startedAt: Date.now(),
-      finishedAt: null,
-      mockConfig: mode === 'mock' ? normalizedMockConfig : undefined,
-      filter: mode === 'wrong' ? undefined : filter,
+      if (mode === 'random') {
+        questions = shuffleOptions(questions)
+      }
+
+      if (questions.length === 0) return false
+
+      const sessionQuestions = questions.map((q, i) => ({
+        question: { ...q, id: `${q.id}-s${i}` },
+        userAnswer: null as string | null,
+        isCorrect: null as boolean | null,
+        submitted: false,
+      }))
+
+      session.value = {
+        bankId,
+        mode,
+        questions: sessionQuestions,
+        currentIndex: 0,
+        startedAt: Date.now(),
+        finishedAt: null,
+        mockConfig: mode === 'mock' ? normalizedMockConfig : undefined,
+        filter: mode === 'wrong' ? undefined : filter,
+      }
+      saveSession(session.value)
+      return true
     }
-    saveSession(session.value)
-    return true
-  }
 
   const currentSubmitted = computed(() => {
     if (!session.value) return false
@@ -479,5 +519,6 @@ export const usePracticeStore = defineStore('practice', () => {
     importAnalysis,
     confirmImport,
     cancelImport,
+    syncServerBanks,
   }
 })

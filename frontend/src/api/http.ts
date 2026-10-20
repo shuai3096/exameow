@@ -206,13 +206,25 @@ export const httpApi = {
   },
 
   async getServerInfo(): Promise<ServerConfigInfo | null> {
-    try {
-      const res = await fetch(`${BASE_URL}/api/config/server`)
-      if (res.ok) return await res.json()
-    } catch {}
-    return null
-  },
-};
+      try {
+        const res = await fetch(`${BASE_URL}/api/config/server`)
+        if (res.ok) return await res.json()
+      } catch {}
+      return null
+    },
+
+    async listServerBanks(): Promise<{ bank: string; count: number }[]> {
+      const res = await fetch(`${BASE_URL}/api/bank/list`)
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`)
+      return res.json()
+    },
+
+    async getServerBank(bank: string): Promise<{ bank: string; count: number; questions: Question[] }> {
+      const res = await fetch(`${BASE_URL}/api/bank/${encodeURIComponent(bank)}`)
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`)
+      return res.json()
+    },
+  };
 
 export function generateCsvContent(questions: Question[]): string {
   const typeLabels: Record<string, string> = {

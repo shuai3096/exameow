@@ -195,6 +195,8 @@ onMounted(() => {
   if (practiceStore.session) {
     wrongStore.syncSession(practiceStore.session)
   }
+  // Pull server-side banks (NAS) into local practice list.
+    practiceStore.syncServerBanks()
   // Returning from "Learn with AI" should open the session at the current question.
   if (route.query.resume === '1' && practiceStore.session) {
     resumeSession()
